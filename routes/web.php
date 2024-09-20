@@ -1,15 +1,22 @@
 <?php
 
+use App\Livewire\ArchivedListComponent;
+use App\Livewire\DashboardComponent;
+use App\Livewire\TaskComponent;
+use App\Livewire\TaskListComponent;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+Route::get('dashboard', DashboardComponent::class)->middleware('auth')->name('dashboard');
+Route::get('task-list', TaskListComponent::class)->middleware('auth')->name('task-list');
+Route::get('task', TaskComponent::class)->middleware('auth')->name('task-create');
+Route::get('task-edit/{id}', TaskComponent::class)->middleware('auth')->name('task-edit');
+Route::get('archived', ArchivedListComponent::class)->middleware('auth')->name('archived-list');
+
 
 require __DIR__.'/auth.php';
